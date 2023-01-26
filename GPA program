@@ -1,0 +1,61 @@
+# Creating the courselist list
+courselist = []
+
+# list used for forcing the user to choose a letter for lettergrade input
+choice_options = ["A", "B", "C", "D", "F"]
+
+# loops until the user chooses to exit
+while exit != "exit":
+    valid_input = False
+    coursename = input("What is the name of your course?: ")
+
+    # asks for lettergrade input, and only completes the loop when the input matches any item in the choice_options list
+    while not valid_input:
+        # asks user for a letter grade
+        lettergrade = input(f"Please input the letter grade for your {coursename} course: ").capitalize()
+        
+        # if the user input matches an item in choice_options, then the input has passed validation
+        if lettergrade in choice_options:
+            valid_input = True
+
+        # print when the user inputs anything not in the choice_options list, forcing them to do another input
+        else:
+            print("Please enter a valid choice")
+
+    # adds the user input to the courselist list            
+    courselist = courselist + [[coursename, lettergrade]]
+
+    # prompt for the user to exit or add more course information
+    exit = input("Press any button to add another course, type 'exit' to quit: ")
+
+# these three lines are used for counting how many subset lists need to be evaluated
+List_Length = 0
+for a in courselist :
+    List_Length = List_Length + 1
+
+
+GPAaverage = 0
+Courses_valuated = 0
+
+# evaluates the grade of each subset list until the amount evaluated equals the amount of subset lists counted previously
+while Courses_valuated != List_Length :
+    GPAaverage = GPAaverage
+    grade = courselist[Courses_valuated][1]
+    Courses_valuated = Courses_valuated + 1
+    if grade == "F" :
+        Number_grade = 0
+    elif grade == "D" :
+        Number_grade = 1
+    elif grade == "C" :
+        Number_grade = 2
+    elif grade == "B" :
+        Number_grade = 3
+    elif grade == "A" :
+        Number_grade = 4
+    GPAaverage = GPAaverage + Number_grade
+
+# calculate the average gpa of the user
+Final_GPA = GPAaverage / List_Length
+
+# print the average gpa with a limit of 3 decimals
+print("your gpa:", round(Final_GPA, 3))
